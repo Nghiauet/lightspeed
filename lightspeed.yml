@@ -1,0 +1,14 @@
+name: lightspeed_tts
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - librosa
+  - numpy
+  - pytorch
+  - tensorflow
+  - tqdm
+  - ipykernel
+  - textgrid
+  - regex
+prefix: C:\Users\Ashimory\anaconda3\envs\lightspeed_tts
