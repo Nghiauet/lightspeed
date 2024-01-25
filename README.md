@@ -14,14 +14,14 @@ We provide two pretrained models and demos:
 
 ## FAQ
 
-Q: How do I create training data?  
-A: See the `./prepare_ljs_tfdata.ipynb` notebook for instructions on preparing the training data.
+Q: How do I train on custom dataset?  
+A: See the `./prepare_audio_1_tfdata.ipynb` notebook for instructions on preparing the training data.
 
 Q: How can I train the model with 1 GPU?  
-A: Run: `python train.py`
+A: Run: `python train.py --tfdata tfdata --rm-old-ckpt > logs/run.log`
 
-Q: How can I train the model with 4 GPUs?  
-A: Run: `torchrun --standalone --nnodes=1 --nproc-per-node=4 train.py`
+Q: How can I train the model with specific GPU?
+A: Run: `CUDA_VISIBLE_DEVICES=2,3 torchrun --standalone --nnodes=1 --nproc-per-node=2 train.py --tfdata tfdata --rm-old-ckpt --batch-size 16` 
 
 Q: How can I train a model to predict phoneme durations?  
 A: See the `./train_duration_model.ipynb` notebook.
@@ -33,3 +33,17 @@ A: See the `./inference.ipynb` notebook.
 ## Credits
 
 - Most of the code in this repository is based on the [VITS official repository](https://github.com/jaywalnut310/vits).
+
+## fix bug
+- bug with mfa aligner
+  use newer version of mfa see [here](https://montreal-forced-aligner.readthedocs.io/en/latest/installation.html)
+- bug with vbx dataset
+    install git lfs
+    ```bash
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash sudo apt-get install git-lfs
+    ```
+- when train with custom dataset txt file and wav must be in the same folder
+- need to train separate duration model when inference
+- run mfa train -h to see how to config train ( it train on CPU don't know why)
+- to view loss table with tensorboard
+  - ctrl + shift + p -> python:Launch Tensorboard -> choose logs folder
